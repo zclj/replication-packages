@@ -1,0 +1,108 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API title",
+    "version": "0.0.1"
+  },
+  "basePath": "/api",
+  "paths": {  
+    "/v4/groups/{id}": {
+      "delete": {
+        "summary": "Remove a group.",
+        "description": "Remove a group.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "The ID of a group",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Remove a group."
+          },
+          "404": {
+            "type:": "string"
+          },
+          "400": {
+            "type:": "string"
+          }
+        },
+        "tags": [
+          "groups"
+        ],
+        "operationId": "deleteV3GroupsId"
+      }
+    }
+  },
+  "definitions": {
+    "Group": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "visibility": {
+          "type": "string"
+        },
+        "lfs_enabled": {
+          "type": "boolean"
+        },
+        "web_url": {
+          "type": "string"
+        },
+        "request_access_enabled": {
+          "type": "boolean"
+        },
+        "statistics": {
+          "type": "object"
+        }
+      },
+      "description": "Update a group. Available only for users who can administrate groups."
+    },
+    "GroupDetail": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "visibility": {
+          "type": "string"
+        },
+        "avatar_url": {
+          "type": "string"
+        },
+        "web_url": {
+          "type": "string"
+        },
+        "request_access_enabled": {
+          "type": "boolean"
+        }
+      },
+      "description": "Transfer a project to the group namespace. Available only for admin."
+    }
+  }
+}

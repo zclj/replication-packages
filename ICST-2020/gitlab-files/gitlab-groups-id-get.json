@@ -1,0 +1,119 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API title",
+    "version": "0.0.1"
+  },
+  "basePath": "/api",
+  "paths": {  
+    "/v4/groups/{id}": {
+      "get": {
+        "summary": "Get a single group, with containing projects.",
+        "description": "Get a single group, with containing projects.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "The ID of a group",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "with_custom_attributes",
+            "description": "Include custom attributes in response",
+            "type": "boolean",
+            "required": false
+          },
+          {
+            "in": "path",
+            "name": "with_projects",
+            "description": "Include details from projects that belong to the specified group",
+            "type": "boolean",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get a single group, with containing projects.",
+            "schema": {
+              "$ref": "#/definitions/GroupDetail"
+            }
+          }
+        },
+        "tags": [
+          "groups"
+        ],
+        "operationId": "getV3GroupsId"
+      }
+    }
+  },
+  "definitions": {
+    "Group": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "visibility": {
+          "type": "string"
+        },
+        "lfs_enabled": {
+          "type": "boolean"
+        },
+        "web_url": {
+          "type": "string"
+        },
+        "request_access_enabled": {
+          "type": "boolean"
+        },
+        "statistics": {
+          "type": "object"
+        }
+      },
+      "description": "Update a group. Available only for users who can administrate groups."
+    },
+    "GroupDetail": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "visibility": {
+          "type": "string"
+        },
+        "avatar_url": {
+          "type": "string"
+        },
+        "web_url": {
+          "type": "string"
+        },
+        "request_access_enabled": {
+          "type": "boolean"
+        }
+      },
+      "description": "Transfer a project to the group namespace. Available only for admin."
+    }
+  }
+}

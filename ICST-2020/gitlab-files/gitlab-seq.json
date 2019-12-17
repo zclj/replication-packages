@@ -1,0 +1,227 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API title",
+    "version": "0.0.1"
+  },
+  "basePath": "/api",
+  "paths": {
+    "/v4/groups": {
+      "post": {
+        "summary": "Create a group. Available only for users who can create groups.",
+        "description": "Create a group. Available only for users who can create groups.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "name",
+            "description": "The name of the group",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "path",
+            "description": "The path of the group",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "description",
+            "description": "The description of the group",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Create a group. Available only for users who can create groups.",
+            "schema": {
+              "$ref": "#/definitions/Group"
+            }
+          },
+          "400": {
+            "type:": "string"
+          }
+        },
+        "tags": [
+          "groups"
+        ],
+        "operationId": "postV3Groups"
+      }
+    },
+    "/v4/groups/{id}": {
+      "put": {
+        "summary": "Update a group. Available only for users who can administrate groups.",
+        "description": "Update a group. Available only for users who can administrate groups.",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "The ID of a group",
+            "type": "integer",
+            "format": "int32",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "name",
+            "description": "The name of the group",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "path",
+            "description": "The path of the group",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "name": "description",
+            "description": "The description of the group",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update a group. Available only for users who can administrate groups.",
+            "schema": {
+              "$ref": "#/definitions/Group"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          }
+        },
+        "tags": [
+          "groups"
+        ],
+        "operationId": "putV3GroupsId"
+      },
+      "delete": {
+        "summary": "Remove a group.",
+        "description": "Remove a group.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "The ID of a group",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Remove a group."
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          },
+          "202": {
+            "type:": "object"
+          }
+        },
+        "tags": [
+          "groups"
+        ],
+        "operationId": "deleteV3GroupsId"
+      }
+    }
+  },
+  "definitions": {
+    "Message": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "Group": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "visibility": {
+          "type": "string"
+        },
+        "lfs_enabled": {
+          "type": "boolean"
+        },
+        "web_url": {
+          "type": "string"
+        },
+        "request_access_enabled": {
+          "type": "boolean"
+        },
+        "statistics": {
+          "type": "object"
+        }
+      },
+      "description": "Update a group. Available only for users who can administrate groups."
+    },
+    "GroupDetail": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "visibility": {
+          "type": "string"
+        },
+        "avatar_url": {
+          "type": "string",
+          "required":false
+        },
+        "web_url": {
+          "type": "string"
+        },
+        "request_access_enabled": {
+          "type": "boolean"
+        }
+      },
+      "description": "Transfer a project to the group namespace. Available only for admin."
+    }
+  }
+}

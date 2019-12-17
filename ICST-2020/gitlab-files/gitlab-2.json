@@ -1,0 +1,83 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API title",
+    "version": "0.0.1"
+  },
+  "basePath": "/api",
+  "paths": {
+    "/v4/groups": {
+      "get": {
+        "summary": "Get a groups list",
+        "description": "Get a groups list",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "Current page number",
+            "type": "integer",
+            "format": "int32",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get a groups list",
+            "schema": {
+              "uniqueItems": false,
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Group"
+              }
+            }
+          },
+          "400": {
+            "type:": "string"
+          }
+        },
+        "tags": [
+          "groups"
+        ],
+        "operationId": "getV3Groups"
+      }
+    }
+  },
+  "definitions": {
+    "Group": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "visibility": {
+          "type": "string"
+        },
+        "lfs_enabled": {
+          "type": "boolean"
+        },
+        "web_url": {
+          "type": "string"
+        },
+        "request_access_enabled": {
+          "type": "boolean"
+        },
+        "statistics": {
+          "type": "object"
+        }
+      },
+      "description": "Update a group. Available only for users who can administrate groups."
+    }
+  }
+}

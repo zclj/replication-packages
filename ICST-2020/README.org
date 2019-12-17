@@ -1,0 +1,69 @@
+* Open API with property-based testing
+  :PROPERTIES:
+  :CUSTOM_ID: doc
+  :END:
+  This repository contains the necessary artifacts to reproduce our experiments. This is not production software, it is written with experimentation in mind.
+
+** Setup
+   :PROPERTIES:
+   :CUSTOM_ID: setup
+   :END:
+
+*** Install Docker
+    :PROPERTIES:
+    :CUSTOM_ID: docker
+    :END:
+    Instructions at [[https://www.docker.com/][Docker page]]
+
+*** Install Clojure
+    :PROPERTIES:
+    :CUSTOM_ID: clojure
+    :END:
+    Instructions at [[https://clojure.org/][Clojure page]]
+
+*** Setup Gitlab
+    :PROPERTIES:
+    :CUSTOM_ID: gitlab
+    :END:
+    
+**** Start Gitlab container
+     - There is an [[file:run-gitlab-11-2-0.sh][included shell script]] to run the used version of GitLab
+     - Experiments where run on GitLab 11.2 and submitted bugs where verified on 12.0.3 which was the latest release at the time.
+
+**** Create an access token
+     1. Verify that GitLab is running by =docker ps=
+     2. Browse to =localhost=
+     3. You will be prompted to change password for the root user
+     4. Sign in as root
+     5. Append the url with /admin
+     6. At the admin page select =Users=
+     7. Create a new test user, set the =Access level= to =Admin=
+     8. At the test users page, select =Impersonation Tokens=
+     9. Create a token with the scope of =api=
+     10. Save the token
+     11. Verify with =curl -v --header "Private-Token: <your token>" http://localhost/api/v4/projects=. It should return a 200 result.
+
+** Running experiments
+   :PROPERTIES:
+   :CUSTOM_ID: experiments
+   :END:
+   The GitLab input experiments can be found in [[file:src/openapi_pbt/gitlab_experiments.clj][gitlab-experiments.clj]]. In the "Experiments" section, each experiment is listen in a =comment= block. Start by evaluating the complete file in your Clojure REPL, this will set things up, and then evaluate the individual experiment to run one by one.
+
+*** Setup
+    :PROPERTIES:
+    :CUSTOM_ID: setupexp
+    :END:
+    - Set the value of =url-root= to your root.
+    - Set the value of =access-token= to your token.
+
+*** Monitoring
+    :PROPERTIES:
+    :CUSTOM_ID: monitoring
+    :END:
+    - logs can be found at http://localhost/admin/logs, select 'production.log'
+
+*** Stateful experiments
+    :PROPERTIES:
+    :CUSTOM_ID: stateful
+    :END:
+    The stateful experiment that produces a sequence of calls is in [[file:src/openapi_pbt/gitlab_stateful_experiment.clj][gitlab-stateful-experiment.clj]]. The relevant log to check is =~/temp/gitlab/logs/gitlab-rails/production.log=. A suggestion is to run =cat production.log | grep -C 15 TRDeadlock= to see that we produced the stateful sequence that exposes the bug: [POST, PUT, DELETE] => Deadlock

@@ -1,0 +1,15 @@
+{:paths ["resources" "src"]
+ :deps  {org.clojure/clojure    {:mvn/version "1.10.0"}
+         clj-http               {:mvn/version "3.9.1"}
+         cheshire               {:mvn/version "5.8.1"}
+         http-kit               {:mvn/version "2.3.0"}
+         org.clojure/test.check {:mvn/version "0.10.0-alpha4"}}
+ :aliases
+ {:test {:extra-paths ["test" "test/resources"]
+         :extra-deps  {org.clojure/test.check {:mvn/version "0.10.0-alpha4"}}}
+  :runner
+  {:extra-deps {com.cognitect/test-runner
+                {:git/url "https://github.com/cognitect-labs/test-runner"
+                 :sha     "209b64504cb3bd3b99ecfec7937b358a879f55c1"}}
+   :main-opts  ["-m" "cognitect.test-runner"
+                "-d" "test"]}}}
