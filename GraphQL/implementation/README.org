@@ -1,0 +1,79 @@
+* GraphQL API test generation with property-based testing
+  :PROPERTIES:
+  :CUSTOM_ID: doc
+  :END:
+  This repository contains the necessary artifacts to reproduce our experiments. This is not production software, it is a prof of concept, written with experimentation in mind.
+
+** Setup
+   :PROPERTIES:
+   :CUSTOM_ID: setup
+   :END:
+
+*** Install Docker
+    :PROPERTIES:
+    :CUSTOM_ID: docker
+    :END:
+    Instructions at [[https://www.docker.com/][Docker page]]
+
+*** Install Clojure
+    :PROPERTIES:
+    :CUSTOM_ID: clojure
+    :END:
+    Instructions at [[https://clojure.org/][Clojure page]]
+
+*** Setup Gitlab
+    :PROPERTIES:
+    :CUSTOM_ID: gitlab
+    :END:
+    
+**** Start Gitlab container
+     - There is an [[file:run-gitlab.sh][included shell script]] to run the used version of GitLab
+     - Experiments where run on GitLab 12.6.3-ce.
+
+**** Create an access token
+     1. Verify that GitLab is running by =docker ps=
+     2. Browse to =localhost=
+     3. You will be prompted to change password for the root user
+     4. Sign in as root
+     5. Append the url with /admin
+     6. At the admin page select =Users=
+     7. Create a new test user, set the =Access level= to =Admin=
+     8. At the test users page, select =Impersonation Tokens=
+     9. Create a token with the scope of =api=
+     10. Save the token
+     11. Verify with =curl -v --header "Private-Token: <your token>" http://localhost/api/v4/projects=. It should return a 200 result.
+
+** Running experiments
+   :PROPERTIES:
+   :CUSTOM_ID: experiments
+   :END:
+
+*** Setup
+    :PROPERTIES:
+    :CUSTOM_ID: setupexp
+    :END:
+    - Set the value of =token= to your access token in the files using it.
+
+*** Monitoring
+    :PROPERTIES:
+    :CUSTOM_ID: monitoring
+    :END:
+    - logs can be found at http://localhost/admin/logs, select 'production.log'
+
+*** Coverage experiments
+    :PROPERTIES:
+    :CUSTOM_ID: coverage
+    :END:
+    The GitLab coverage experiments can be found in [[file:src/gql/coverage_experiments.clj][coverage-experiments.clj]]. Each experiment can be evaluated as a Clojure form. Our results are stated in comments below each experiment.
+
+*** Iterations to coverage experiments
+    :PROPERTIES:
+    :CUSTOM_ID: iterations
+    :END:
+    The GitLab experiment of evaluating how many iterations are needed for coverage can be found in [[file:src/gql/iterations_to_coverage_experiment.clj][iterations-to-coverage-experiment.clj]]. Each experiment can be evaluated as a Clojure form. Our results are stated in comments below each experiment.
+
+*** Fault finding experiments
+    :PROPERTIES:
+    :CUSTOM_ID: faults
+    :END:
+    The GitLab experiment of finding faults can be found in [[file:src/gql/fault_finding_experiment.clj][fault-finding-experiment.clj]]. Note that the `test-property` is using the `string` configured argument generator, to find the faults. The pre-configured argument generators are found in [[file:src/gql/generators.clj][generators.clj]]. These generators can be customized to the users liking or a new domain specific generator can be supplied by the user.
