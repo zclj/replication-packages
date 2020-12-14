@@ -1,0 +1,26 @@
+{:enums
+ {:status
+  {:description "The status of a project"
+   :values      [:STARTED :COMPLETED]}}
+
+ :objects
+ {:Project
+  {:fields {:id          {:type (non-null ID)}
+            :name        {:type String}
+            :description {:type String}
+            :owner       {:type    :User
+                          :resolve :project/owner}
+            :members     {:type    (list :User)
+                          :resolve :project/members}}}
+
+  :User
+  {:fields {:id       {:type ID}
+            :name     {:type String}
+            :age      {:type Int}
+            :projects {:type    (list :Project)
+                       :resolve :user/projects}}}}
+
+ :queries
+ {:projects {:type    :Project
+             :args    {:id {:type (non-null ID)}}
+             :resolve :query/project}}}

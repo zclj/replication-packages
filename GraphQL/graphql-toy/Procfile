@@ -1,0 +1,1 @@
+web: java -cp target/uberjar/graphql-toy.jar clojure.main -m graphql-toy.core
