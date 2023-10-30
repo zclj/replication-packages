@@ -1,3 +1,9 @@
+* Latest version of QuickREST
+  :PROPERTIES:
+  :CUSTOM_ID: latest
+  :END:
+  If you want to use QuickREST as part of an evaluation or testing your system, we recommend the most current version found in the [[https://github.com/zclj/QuickREST][QuickREST repository]].
+
 * Open API with property-based testing
   :PROPERTIES:
   :CUSTOM_ID: doc

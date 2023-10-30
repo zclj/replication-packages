@@ -1,7 +1,8 @@
 
 # Table of Contents
 
-1.  [Open API with property-based testing](#doc)
+1.  [Latest version of QuickREST](#latest)
+2.  [Open API with property-based testing](#doc)
     1.  [Setup](#setup)
         1.  [Install Docker](#docker)
         2.  [Install Clojure](#clojure)
@@ -10,6 +11,13 @@
         1.  [Setup](#setupexp)
         2.  [Monitoring](#monitoring)
         3.  [Stateful experiments](#stateful)
+
+
+<a id="latest"></a>
+
+# Latest version of QuickREST
+
+If you want to use QuickREST as part of an evaluation or testing your system, we recommend the most current version found in the [QuickREST repository](https://github.com/zclj/QuickREST).
 
 
 <a id="doc"></a>
